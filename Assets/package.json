@@ -3,8 +3,7 @@
     "version": "3.4.4",
     "displayName": "Kinematic Character Controller (Core)",
     "description": "UPM version of only core of https://assetstore.unity.com/packages/tools/physics/kinematic-character-controller-99131",
-    "unity": "2020.3.30",
-    "unityRelease": "0f1",
+    "unity": "2020.3",
     "documentationUrl": "https://docs.google.com/document/d/1qT71uGaUO4UmK1NbW9-UsrX1G-0dWWQ2JQlKWBH0dIw/edit#heading=h.exahpqm7i35m",
     "dependencies": {
    },
