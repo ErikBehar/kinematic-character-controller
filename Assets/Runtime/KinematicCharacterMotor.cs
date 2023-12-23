@@ -76,6 +76,8 @@ namespace KinematicCharacterController
         public Collider GroundCollider;
         public Vector3 GroundPoint;
 
+        public HitStabilityReport groundHitStabilityReport;
+
         public void CopyFrom(CharacterTransientGroundingReport transientGroundingReport)
         {
             FoundAnyGround = transientGroundingReport.FoundAnyGround;
@@ -250,6 +252,16 @@ namespace KinematicCharacterController
         /// </summary>    
         [Tooltip("The distance from the capsule central axis at which the character can stand on a ledge and still be stable")]
         public float MaxStableDistanceFromLedge = 0.5f;
+        /// <summary>
+        /// Apply a force if character is past MaxStableDistanceFromLedge and standing on ledge
+        /// </summary>    
+        [Tooltip("Apply a force if character is past MaxStableDistanceFromLedge and standing on ledge")]
+        public bool applyPushingForceIfBeyondStableLedgeDistance = false;
+        /// <summary>
+        /// "How much force to apply if character is past MaxStableDistanceFromLedge and standing on ledge
+        /// </summary>    
+        [Tooltip("How much force to apply to character if its past MaxStableDistanceFromLedge and standing on ledge")]
+        public float pushAwayFromLedgeForce = 10f;
         /// <summary>
         /// Prevents snapping to ground on ledges beyond a certain velocity
         /// </summary>    
@@ -1155,6 +1167,13 @@ namespace KinematicCharacterController
             // Handle velocity
             CharacterController.UpdateVelocity(ref BaseVelocity, deltaTime);
 
+            // Add ledge push
+            if (applyPushingForceIfBeyondStableLedgeDistance && GroundingStatus.groundHitStabilityReport.LedgeDetected &&
+                GroundingStatus.groundHitStabilityReport.DistanceFromLedge > MaxStableDistanceFromLedge)
+            {
+                BaseVelocity += GroundingStatus.groundHitStabilityReport.LedgeFacingDirection * pushAwayFromLedgeForce*deltaTime;
+            }
+
             //this.CharacterController.UpdateVelocity(ref BaseVelocity, deltaTime);
             if (BaseVelocity.magnitude < MinVelocityMagnitude)
             {
@@ -1294,6 +1313,7 @@ namespace KinematicCharacterController
                     groundingReport.GroundCollider = groundSweepHit.collider;
                     groundingReport.GroundPoint = groundSweepHit.point;
                     groundingReport.SnappingPrevented = false;
+                    groundingReport.groundHitStabilityReport = groundHitStabilityReport;
 
                     // Found stable ground
                     if (groundHitStabilityReport.IsStable)

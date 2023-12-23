@@ -1,6 +1,6 @@
 {
     "name": "com.invadererik.kinematic-character-controller",
-    "version": "3.4.4",
+    "version": "3.5.0",
     "displayName": "Kinematic Character Controller (Core)",
     "description": "UPM version of only core of https://assetstore.unity.com/packages/tools/physics/kinematic-character-controller-99131",
     "unity": "2020.3",
