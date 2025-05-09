@@ -173,7 +173,7 @@ namespace KinematicCharacterController
 
                 mover.Transform.SetPositionAndRotation(mover.TransientPosition, mover.TransientRotation);
                 mover.Rigidbody.position = mover.TransientPosition;
-                mover.Rigidbody.rotation = mover.TransientRotation;
+                mover.Rigidbody.rotation = mover.TransientRotation.normalized;
             }
         }
 
