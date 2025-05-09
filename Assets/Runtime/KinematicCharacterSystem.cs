@@ -246,7 +246,7 @@ namespace KinematicCharacterController
                     mover.Rigidbody.rotation = mover.InitialTickRotation.normalized;
 
                     mover.Rigidbody.MovePosition(mover.TransientPosition);
-                    mover.Rigidbody.MoveRotation(mover.TransientRotation);
+                    mover.Rigidbody.MoveRotation(mover.TransientRotation.normalized);
                 }
                 else
                 {
